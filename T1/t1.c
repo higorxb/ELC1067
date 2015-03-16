@@ -3,7 +3,11 @@
 #include <string.h>
 
 
-main(){
-
+int main(int argc, char** argv{
+    char* nome;
+    if(argc > 1){
+        strcpy(nome, argv[1]);
+    }
+    printf("%s\n", n
 
 }
