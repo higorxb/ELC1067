@@ -41,7 +41,10 @@ void leitor_notas(float* medias){
 }
 
 void localiza_aluno(char nome, char nomes[][50], int n, float* medias){
-    int cont=0;
+    int cont;
+    for(cont=0;cont<n,cont++){
+
+    }
 
 int main(int argc, char** argv){
     char* nome;
