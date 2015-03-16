@@ -30,7 +30,7 @@ leitor_notas(float* medias){
     int cont=0,mat;
     float n1,n2;
     FILE*f = fopen("notas.txt", "r");
-    while(feof(f) <= 0){
+    while(feof(f) == 0){
         if(fscanf(f, "%d %f %f\n", &mat, &n1, &n2) <= 0){
             break;
             medias[cont]=(n1+n2)/2;
@@ -40,18 +40,16 @@ leitor_notas(float* medias){
     fclose(f);
 }
 
-}
-
 int main(int argc, char** argv){
     char* nome;
+    float medias[50];
+    int n,matri[50];
+    char nomes[50][50];
     if(argc > 1){
         strcpy(nome, argv[1]);
     }
     printf("%s\n", nome);
-    int matri[50];
-    char nomes[50][50];
-    int n;
     leitor_alunos(matri, nomes, &n);
-    float medias[50];
     leitor_notas(medias);
+    localiza_aluno(nome,nomes,n,medias);
 }
