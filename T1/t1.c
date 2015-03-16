@@ -26,7 +26,7 @@ void leitor_alunos(int* matri, char nomes[][50], int* n){
     fclose(f);
 }
 
-leitor_notas(float* medias){
+void leitor_notas(float* medias){
     int cont=0,mat;
     float n1,n2;
     FILE*f = fopen("notas.txt", "r");
@@ -39,6 +39,9 @@ leitor_notas(float* medias){
     }
     fclose(f);
 }
+
+void localiza_aluno(char nome, char nomes[][50], int n, float* medias){
+    int cont=0;
 
 int main(int argc, char** argv){
     char* nome;
