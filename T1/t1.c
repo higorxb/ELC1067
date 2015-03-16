@@ -43,7 +43,9 @@ void leitor_notas(float* medias){
 void localiza_aluno(char nome, char nomes[][50], int n, float* medias){
     int cont;
     for(cont=0;cont<n,cont++){
-
+        if(strstr(nomes[cont], nome)!=NULL){
+            printf("%f %s\n", medias, nomes);
+        }
     }
 
 int main(int argc, char** argv){
