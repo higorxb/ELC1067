@@ -58,28 +58,15 @@ void localiza_aluno(char* nome, char** nomes, int* n, float* medias){
 
 
 int main (int argc,char** argv){
-    int i;
     char *nome;
-    nome=(char*)malloc(50*sizeof(char));
-    if(nome==NULL){
-        printf("\nErro na alocacao de memoria.\n");
-        exit(1);
-    }
     float *medias;
-    medias=(float*)malloc(50*sizeof(float));
-    if(medias==NULL){
-        printf("\nErro na alocacao de memoria.\n");
-        exit(1);
-    }
-    int *matri,*n;
-    n=matri=(int*)malloc(50*sizeof(int));
-    if(n==NULL || matri==NULL ){
-        printf("\nErro na alocacao de memoria.\n");
-        exit(1);
-    }
+    int *matri,*n,i;
     char** nomes;
+    nome=(char*)malloc(50*sizeof(char));
+    medias=(float*)malloc(50*sizeof(float));
+    n=matri=(int*)malloc(50*sizeof(int));
     nomes=(char**)malloc(50*sizeof(char*));
-    if(nomes==NULL){
+    if(nome==NULL || medias==NULL || n==NULL || matri==NULL){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
     }
