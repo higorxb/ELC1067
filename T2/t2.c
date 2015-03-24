@@ -30,6 +30,20 @@ void leitor_alunos(int* matri,char* nomes,int* n ){
     }
 }
 
+void leitor_notas(float *medias){
+    int cont=0,mat;
+    float n1,n2;
+    FILE*f = fopen("notas.txt", "r");
+    while(feof(f) == 0){
+        if(fscanf(f, "%d %f %f\n", &mat, &n1, &n2) <= 0){
+		break;
+        }
+            medias[cont]=(n1+n2)/2;
+            cont++;
+    }
+    fclose(f);
+}
+
 
 int main (int argc,char** argv){
     char *nome;
@@ -57,8 +71,9 @@ int main (int argc,char** argv){
         exit(1);
     }
     if(argv > 1){
-        nome = argv[1];
+        *nome = argv[1];
     }
     printf("%s \n", nome);
     leitor_alunos(matri,nomes,n);
+    leitor_notas(medias);
 }
