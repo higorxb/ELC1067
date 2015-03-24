@@ -25,7 +25,7 @@ void leitor_alunos(int* matri,char** nomes,int* n ){
         }
         nome[i] = '\0';
         matri[linha]=mat;
-        nomes=(char*)malloc((strlen(nome)+1)*sizeof(char));
+        nomes[linha]=(char*)malloc((strlen(nome)+1)*sizeof(char));
         strcpy(nomes[linha],nome);
         linha++;
     }
@@ -47,9 +47,9 @@ void leitor_notas(float *medias){
     fclose(f);
 }
 
-void localiza_aluno(char* nome, char* nomes, int* n, float* medias){
+void localiza_aluno(char* nome, char** nomes, int* n, float* medias){
     int cont;
-    for(cont=0;cont<n;cont++){
+    for(cont=0;cont<*n;cont++){
         if(strstr(nomes[cont], nome)!=NULL){
             printf("%f %s\n", medias[cont], nomes[cont]);
         }
@@ -82,8 +82,8 @@ int main (int argc,char** argv){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
     }
-    if(argv > 1){
-        *nome = argv[1];
+    if(argc > 1){
+        nome = argv[1];
     }
     printf("%s \n", nome);
     leitor_alunos(matri,nomes,n);
