@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void leitor_alunos(int* matri,char* nomes,int* n ){
+void leitor_alunos(int* matri,char** nomes,int* n ){
     int mat,i,linha;
     char c;
     char *nome;
@@ -25,6 +25,7 @@ void leitor_alunos(int* matri,char* nomes,int* n ){
         }
         nome[i] = '\0';
         matri[linha]=mat;
+        nomes=(char*)malloc((strlen(nome)+1)*sizeof(char));
         strcpy(nomes[linha],nome);
         linha++;
     }
@@ -69,14 +70,14 @@ int main (int argc,char** argv){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
     }
-    int *matri,*n,i,j;
+    int *matri,*n;
     n=matri=(int*)malloc(50*sizeof(int));
     if(n==NULL || matri==NULL ){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
     }
-    char* nomes;
-    nomes=(char*)malloc(50*50*sizeof(char));
+    char** nomes;
+    nomes=(char**)malloc(50*sizeof(char*));
     if(nomes==NULL){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
@@ -88,4 +89,9 @@ int main (int argc,char** argv){
     leitor_alunos(matri,nomes,n);
     leitor_notas(medias);
     localiza_aluno(nome,nomes,n,medias);
+    free(nome);
+    free(medias);
+    free(matri);
+    free(n);
+    free(nomes);
 }
