@@ -30,6 +30,8 @@ void leitor_alunos(int* matri,char* nomes,int* n ){
     }
 }
 
+
+
 void leitor_notas(float *medias){
     int cont=0,mat;
     float n1,n2;
@@ -42,6 +44,15 @@ void leitor_notas(float *medias){
             cont++;
     }
     fclose(f);
+}
+
+void localiza_aluno(char* nome, char* nomes, int* n, float* medias){
+    int cont;
+    for(cont=0;cont<n;cont++){
+        if(strstr(nomes[cont], nome)!=NULL){
+            printf("%f %s\n", medias[cont], nomes[cont]);
+        }
+    }
 }
 
 
@@ -76,4 +87,5 @@ int main (int argc,char** argv){
     printf("%s \n", nome);
     leitor_alunos(matri,nomes,n);
     leitor_notas(medias);
+    localiza_aluno(nome,nomes,n,medias);
 }
