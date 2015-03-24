@@ -58,6 +58,7 @@ void localiza_aluno(char* nome, char** nomes, int* n, float* medias){
 
 
 int main (int argc,char** argv){
+    int i;
     char *nome;
     nome=(char*)malloc(50*sizeof(char));
     if(nome==NULL){
@@ -93,5 +94,8 @@ int main (int argc,char** argv){
     free(medias);
     free(matri);
     free(n);
+    for(i=0;i<n;i++){
+        free(nomes[i]);
+    }
     free(nomes);
 }
