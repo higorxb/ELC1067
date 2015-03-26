@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void leitor_alunos(int* matri,char** nomes,int* n ){
+void leitor_alunos(int* matri,char** nomes,int n ){
     int mat,i,linha;
     char c;
     char *nome;
@@ -29,6 +29,8 @@ void leitor_alunos(int* matri,char** nomes,int* n ){
         strcpy(nomes[linha],nome);
         linha++;
     }
+    n = linha;
+    fclose(f);
 }
 
 
@@ -47,9 +49,9 @@ void leitor_notas(float *medias){
     fclose(f);
 }
 
-void localiza_aluno(char* nome, char** nomes, int* n, float* medias){
+void localiza_aluno(char* nome, char** nomes, int n, float* medias){
     int cont;
-    for(cont=0;cont<*n;cont++){
+    for(cont=0;cont<n;cont++){
         if(strstr(nomes[cont], nome)!=NULL){
             printf("%f %s\n", medias[cont], nomes[cont]);
         }
@@ -60,28 +62,25 @@ void localiza_aluno(char* nome, char** nomes, int* n, float* medias){
 int main (int argc,char** argv){
     char *nome;
     float *medias;
-    int *matri,*n,i;
+    int *matri,n,i;
     char** nomes;
-    nome=(char*)malloc(50*sizeof(char));
     medias=(float*)malloc(50*sizeof(float));
-    n=matri=(int*)malloc(50*sizeof(int));
+    matri=(int*)malloc(50*sizeof(int));
     nomes=(char**)malloc(50*sizeof(char*));
-    if(nome==NULL || medias==NULL || n==NULL || matri==NULL){
+    if(medias==NULL || matri==NULL){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
     }
     if(argc > 1){
-        busca = argv[1];
+        nome = argv[1];
     }
     printf("%s \n", nome);
-    leitor_alunos(matri,nomes,n);
+    leitor_alunos(matri,nomes,&n);
     leitor_notas(medias);
-    localiza_aluno(nome,nomes,n,medias);
-    free(nome);
+    localiza_aluno(nome,nomes,&n,medias);
     free(medias);
     free(matri);
-    free(n);
-    for(i=0;i<*n;i++){
+    for(i=0;i<n;i++){
         free(nomes[i]);
     }
     free(nomes);
