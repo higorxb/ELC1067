@@ -69,10 +69,6 @@ int main (int argc,char** argv){
     matri=(int*)malloc(50*sizeof(int));
     matriN=(int*)malloc(50*sizeof(int));
     nomes=(char**)malloc(50*sizeof(char*));
-    if(nome==NULL || medias==NULL || matri==NULL || matriN == NULL){
-        printf("\nErro na alocacao de memoria.\n");
-        exit(1);
-    }
     if(argc > 1){
         nome = argv[1];
     }
@@ -80,6 +76,10 @@ int main (int argc,char** argv){
     leitor_alunos(matri,nomes,&n);
     leitor_notas(matriN, medias);
     localiza_aluno(matri, matriN, nome, nomes, &n, medias);
+    if(nome==NULL || medias==NULL || matri==NULL || matriN==NULL){
+        printf("\nErro na alocacao de memoria.\n");
+        exit(1);
+    }
     free(medias);
     free(matri);
     free(matriN);
