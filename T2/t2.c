@@ -71,7 +71,7 @@ int main (int argc,char** argv){
         exit(1);
     }
     if(argc > 1){
-        nome = argv[1];
+        busca = argv[1];
     }
     printf("%s \n", nome);
     leitor_alunos(matri,nomes,n);
