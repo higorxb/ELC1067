@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void leitor_alunos(int* matri,char** nomes,int n ){
+void leitor_alunos(int* matri,char** nomes,int* n ){
     int mat,i,linha;
     char c;
     char *nome;
@@ -29,31 +29,35 @@ void leitor_alunos(int* matri,char** nomes,int n ){
         strcpy(nomes[linha],nome);
         linha++;
     }
-    n = linha;
+    *n = linha;
     fclose(f);
 }
 
 
 
-void leitor_notas(float *medias){
+void leitor_notas(int* matriN, float *medias){
     int cont=0,mat;
     float n1,n2;
     FILE*f = fopen("notas.txt", "r");
     while(feof(f) == 0){
         if(fscanf(f, "%d %f %f\n", &mat, &n1, &n2) <= 0){
-		break;
+                break;
         }
-            medias[cont]=(n1+n2)/2;
+           	matriN[cont] = mat;
+            medias[cont] = (n1+n2)/2;
             cont++;
     }
     fclose(f);
 }
 
-void localiza_aluno(char* nome, char** nomes, int n, float* medias){
-    int cont;
-    for(cont=0;cont<n;cont++){
+void localiza_aluno(int* matri, int* matriN, char* nome, char** nomes, int *n, float* medias){
+    int cont, cont2;
+    for(cont=0;cont<*n;cont++){
+    	cont2=0;
         if(strstr(nomes[cont], nome)!=NULL){
-            printf("%f %s\n", medias[cont], nomes[cont]);
+        	while(matri[cont]!=matriN[cont2] && matriN[cont2]>0)
+    			cont2++;
+            printf("%f %s\n", medias[cont2], nomes[cont]);
         }
     }
 }
@@ -62,12 +66,13 @@ void localiza_aluno(char* nome, char** nomes, int n, float* medias){
 int main (int argc,char** argv){
     char *nome;
     float *medias;
-    int *matri,n,i;
+    int *matri, *matriN, n, i;
     char** nomes;
     medias=(float*)malloc(50*sizeof(float));
     matri=(int*)malloc(50*sizeof(int));
+    matriN=(int*)malloc(50*sizeof(int));
     nomes=(char**)malloc(50*sizeof(char*));
-    if(medias==NULL || matri==NULL){
+    if(nome==NULL || medias==NULL || matri==NULL || matriN == NULL){
         printf("\nErro na alocacao de memoria.\n");
         exit(1);
     }
@@ -76,10 +81,11 @@ int main (int argc,char** argv){
     }
     printf("%s \n", nome);
     leitor_alunos(matri,nomes,&n);
-    leitor_notas(medias);
-    localiza_aluno(nome,nomes,&n,medias);
+    leitor_notas(matriN, medias);
+    localiza_aluno(matri, matriN, nome, nomes, &n, medias);
     free(medias);
     free(matri);
+    free(matriN);
     for(i=0;i<n;i++){
         free(nomes[i]);
     }
